@@ -2,7 +2,7 @@ execute "vnoremap <buffer> " . g:NERDTreeMapActivateNode . " :call <SID>ProcessS
 execute "vnoremap <buffer> " . g:NERDTreeMapOpenSplit .    " :call <SID>ProcessSelection('Opening', '', function('NERDTree_Open', ['h']), '', 1, 1)<CR>"
 execute "vnoremap <buffer> " . g:NERDTreeMapOpenVSplit .   " :call <SID>ProcessSelection('Opening', '', function('NERDTree_Open', ['v']), '', 1, 1)<CR>"
 execute "vnoremap <buffer> " . g:NERDTreeMapOpenInTab .    " :call <SID>ProcessSelection('Opening', '', function('NERDTree_Open', ['t']), '', 1, 1)<CR>"
-execute "vnoremap <buffer> dd :call <SID>ProcessSelection('Deleting', '', function('NERDTree_Delete'), '', 0, 1)<CR>"
+execute "vnoremap <buffer> d :call <SID>ProcessSelection('Deleting', '', function('NERDTree_Delete'), '', 0, 1)<CR>"
 execute "vnoremap <buffer> m :call <SID>ProcessSelection('Moving',  function('PRE_MoveOrCopy'), function('NERDTree_MoveOrCopy', ['Moving']), function('POST_MoveOrCopy'), 0, 1)<CR>"
 execute "vnoremap <buffer> c :call <SID>ProcessSelection('Copying', function('PRE_MoveOrCopy'), function('NERDTree_MoveOrCopy', ['Copying']), function('POST_MoveOrCopy'), 0, 1)<CR>"
 
@@ -14,7 +14,9 @@ let g:nerdtree_visual_selection = 1
 " --------------------------------------------------------------------------------
 " Delete
 function! NERDTree_Delete(node)
-    call a:node.delete()
+    " call a:node.delete()
+    exe "silent !/data/lijianchen/miniconda3/envs/pytorch/bin/trash-put --trash-dir=/data/lijianchen/.Trash --force-volume=/data ".a:node.path.str()
+    call b:NERDTree.root.refresh()
 endfunction
 
 " --------------------------------------------------------------------------------
